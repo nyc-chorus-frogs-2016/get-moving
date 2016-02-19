@@ -44,6 +44,7 @@ class LoginView extends Component {
       GoogleSignin.signOut()
         .then(() => {
           console.log('out');
+          this.setState({user: null});
         })
         .catch((err) => {
         });
