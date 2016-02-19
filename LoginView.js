@@ -23,8 +23,6 @@ class LoginView extends Component {
       this.state = {
           events: []
       };
-      // });
-    // }
     GoogleSignin.configure({
         iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
         scopes: ["https://www.googleapis.com/auth/calendar"]
@@ -42,8 +40,6 @@ class LoginView extends Component {
         .done();
     }
     loadEventsFromCalendar() {
-      console.log(this)
-      console.log('button was pressed')
       fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
         headers: {
           "Authorization": "Bearer " + this.state.user.accessToken
@@ -83,31 +79,14 @@ class LoginView extends Component {
               Watch the Chrome JS console to see the result
             </Text>
 
-            <TouchableHighlight onPress={this.submitPressed.bind(this)}>
-              <Text style={styles.instructions}>
-                Click here to go to Event List
-              </Text>
-            </TouchableHighlight>
-
             <TouchableHighlight onPress={this.loadEventsFromCalendar.bind(this)}>
               <Text style={styles.instructions}>
                 Click here to retrieve events from calendar
               </Text>
             </TouchableHighlight>
 
-
           </View>
         );
-      }
-
-      submitPressed() {
-        console.log(this.state.events);
-        console.log("onSubmitPressed has been pressed");
-        this.props.navigator.push({
-          title: "Event List",
-          component: TestScreen,
-          passProps: {},
-        });
       }
 
     }
