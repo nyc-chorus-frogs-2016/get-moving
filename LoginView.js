@@ -20,13 +20,12 @@ class LoginView extends Component {
 
     constructor(props) {
       super(props);
-      // this.state = {
-      //     username: "",
-      //     password: ""
-      // };
+      this.state = {
+          events: []
+      };
       // });
     // }
-      GoogleSignin.configure({
+    GoogleSignin.configure({
         iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
         scopes: ["https://www.googleapis.com/auth/calendar"]
       });
@@ -42,8 +41,9 @@ class LoginView extends Component {
         })
         .done();
     }
-    onPressButton() {
+    loadEventsFromCalendar() {
       console.log(this)
+      console.log('button was pressed')
       fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
         headers: {
           "Authorization": "Bearer " + this.state.user.accessToken
@@ -52,7 +52,12 @@ class LoginView extends Component {
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
-          this.setState( {events: json } )
+          this.setState( {events: json.items } )
+          this.props.navigator.push({
+          title: "Event List",
+          component: TestScreen,
+          passProps: {events: this.state.events},
+        })
         })
     }
 
@@ -78,17 +83,26 @@ class LoginView extends Component {
               Watch the Chrome JS console to see the result
             </Text>
 
-            <TouchableHighlight onPress={this.onSubmitPressed.bind(this)}>
+            <TouchableHighlight onPress={this.submitPressed.bind(this)}>
               <Text style={styles.instructions}>
-                Click here to grab calendar events
+                Click here to go to Event List
               </Text>
             </TouchableHighlight>
+
+            <TouchableHighlight onPress={this.loadEventsFromCalendar.bind(this)}>
+              <Text style={styles.instructions}>
+                Click here to retrieve events from calendar
+              </Text>
+            </TouchableHighlight>
+
+
           </View>
         );
       }
 
-      onSubmitPressed() {
-        console.log(this);
+      submitPressed() {
+        console.log(this.state.events);
+        console.log("onSubmitPressed has been pressed");
         this.props.navigator.push({
           title: "Event List",
           component: TestScreen,
@@ -97,41 +111,6 @@ class LoginView extends Component {
       }
 
     }
-
-    // render() {
-    //     return (
-    //         <View style={styles.container}>
-    //             <Text style={styles.title}>
-    //                 Sign In
-    //             </Text>
-    //             <View>
-    //                 <TextInput
-    //                     placeholder="Username"
-    //                     onChange={(event) => this.setState({username: event.nativeEvent.text})}
-    //                     style={styles.formInput}
-    //                     value={this.state.username} />
-    //                 <TextInput
-    //                     placeholder="Password"
-    //                     secureTextEntry={true}
-    //                     onChange={(event) => this.setState({password: event.nativeEvent.text})}
-    //                     style={styles.formInput}
-    //                     value={this.state.password} />
-    //                 <TouchableHighlight onPress={(this.onSubmitPressed.bind(this))} style={styles.button}>
-    //                     <Text style={styles.buttonText}>Submit</Text>
-    //                 </TouchableHighlight>
-    //             </View>
-    //         </View>
-    //     );
-    // }
-
-    // onSubmitPressed() {
-    //     this.props.navigator.push({
-    //         title: "Secure Page",
-    //         component: TestScreen,
-    //     });
-    // }
-//
-// };
 
 
 var styles = StyleSheet.create({
@@ -151,11 +130,6 @@ var styles = StyleSheet.create({
       color: '#333333',
       margin: 10,
     },
-    // container: {
-    //     padding: 30,
-    //     marginTop: 65,
-    //     alignItems: "stretch"
-    // },
     title: {
         fontSize: 18,
         marginBottom: 10

@@ -10,11 +10,11 @@ import React, {
   View,
 } from 'react-native';
 
-var events = [
-{ name:'Dentist Appointment', startTime: '11:00AM', location: '43 Willow St.' },
-{ name:'Work', startTime: '9:00AM', location: '48 Wall St.'},
-{ name:'Meet John for drinks', startTime: '7:00PM', location: '32 Main St.' },
-];
+// var events = [
+// { name:'Dentist Appointment', startTime: '11:00AM', location: '43 Willow St.' },
+// { name:'Work', startTime: '9:00AM', location: '48 Wall St.'},
+// { name:'Meet John for drinks', startTime: '7:00PM', location: '32 Main St.' },
+// ];
 
 
 class TestScreen extends Component {
@@ -34,7 +34,7 @@ class TestScreen extends Component {
 
   fetchData() {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(events),
+      dataSource: this.state.dataSource.cloneWithRows(this.props.events),
       loaded: true,
     });
   }
@@ -70,7 +70,7 @@ class TestScreen extends Component {
           // "https://upload.wikimedia.org/wikipedia/commons/4/47/Comic_image_missing.png"
           style={styles.thumbnail}/>
         <View style={styles.rightContainer}>
-          <Text style={styles.name}>{event.name}</Text>
+          <Text style={styles.name}>{event.summary}</Text>
           <Text style={styles.time}>Time: {event.startTime}</Text>
           <Text style={styles.location}>Location: {event.location}</Text>
         </View>
