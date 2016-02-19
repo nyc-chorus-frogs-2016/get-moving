@@ -4,9 +4,12 @@ import React, {
   StyleSheet,
   Text,
   TouchableHighlight,
+  Navigator,
   View,
 } from 'react-native';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import TestScreen from './test-screen'
+
 
 class DiaryList extends Component {
   constructor() {
@@ -63,7 +66,7 @@ class DiaryList extends Component {
           Watch the Chrome JS console to see the result
         </Text>
 
-        <TouchableHighlight onPress={this.onPressButton.bind(this)}>
+        <TouchableHighlight onPress={this.onSubmitPressed.bind(this)}>
           <Text style={styles.instructions}>
             Click here to grab calendar events
           </Text>
@@ -71,6 +74,16 @@ class DiaryList extends Component {
       </View>
     );
   }
+
+  onSubmitPressed() {
+    console.log(this);
+    this.props.navigator.push({
+      title: "Event List",
+      component: TestScreen,
+      passProps: {},
+    });
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -92,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiaryList;
+// export default DiaryList;
