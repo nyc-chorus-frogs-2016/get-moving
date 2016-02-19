@@ -1,19 +1,41 @@
 "use strict";
 
-var React = require("react-native");
+import BackgroundGeo from './geo-location';
 
-var {
+
+
+import React, {
+
     AppRegistry,
+    Component,
     StyleSheet,
     Text,
     View,
     NavigatorIOS,
-} = React;
+}  from 'react-native';
 
 var LoginView = require("./LoginView");
 
-var DiaryList = React.createClass({
-    render: function() {
+class DiaryList extends Component {
+    constructor() {
+        super()
+        this.state = { lat:0, lng: 0}
+        new BackgroundGeo(this);
+        setInterval(() => {
+            this.doMainCheckLoop()
+        }, 5000)
+
+    }
+    doMainCheckLoop() {
+
+    }
+    setLocation(lat, lng) {
+        this.setState({
+            lat: lat,
+            lng:lng
+        })
+    }
+    render() {
         return (
             <NavigatorIOS
                 style={styles.navigationContainer}
@@ -23,7 +45,7 @@ var DiaryList = React.createClass({
             }} />
         );
     }
-});
+}
 
 var styles = StyleSheet.create({
     navigationContainer: {
