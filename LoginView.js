@@ -14,7 +14,7 @@ var {
 } = React;
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
-var TestScreen = require("./test-screen");
+var EventList = require("./event_list");
 
 class LoginView extends Component {
 
@@ -33,11 +33,20 @@ class LoginView extends Component {
         .then((user) => {
           console.log(user);
           this.setState({user: user});
+          loadEventsFromCalendar();
         })
         .catch((err) => {
           console.log('WRONG SIGNIN', err);
         })
         .done();
+    }
+    signOut() {
+      GoogleSignin.signOut()
+        .then(() => {
+          console.log('out');
+        })
+        .catch((err) => {
+        });
     }
     loadEventsFromCalendar() {
       fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
@@ -51,7 +60,7 @@ class LoginView extends Component {
           this.setState( {events: json.items } )
           this.props.navigator.push({
           title: "Event List",
-          component: TestScreen,
+          component: EventList,
           passProps: {events: this.state.events},
         })
         })
@@ -74,6 +83,12 @@ class LoginView extends Component {
               color={GoogleSigninButton.Color.Dark}
               onPress={this.signIn.bind(this)}
             />
+            <TouchableHighlight onPress={this.signOut.bind(this)}>
+              <Text style={styles.instructions}>
+                Click here to sign out
+              </Text>
+            </TouchableHighlight>
+
             <Text style={styles.instructions}>
               Once logged in, retrieve your primary calendar by clicking below.
               Watch the Chrome JS console to see the result
