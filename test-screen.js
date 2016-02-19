@@ -116,3 +116,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
+
+module.exports = TestScreen;
+
+// AppRegistry.registerComponent('DiaryList', () => DiaryList);
+// AppRegistry.registerComponent('GetMoving', () => GetMoving);

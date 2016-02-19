@@ -84,13 +84,6 @@ class DiaryList extends Component {
     });
   }
 
-  // onSubmitPressed() {
-  //       this.props.navigator.push({
-  //           title: "Secure Page",
-  //           component: SecureView,
-  //           passProps: {username: this.state.username, password: this.state.password},
-  //       });
-  //   }
 }
 
 const styles = StyleSheet.create({
@@ -112,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiaryList;
+// export default DiaryList;
