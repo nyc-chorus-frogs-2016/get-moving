@@ -67,6 +67,25 @@ class LoginView extends Component {
     }
 
       render() {
+
+        var test ;
+        if (this.state.user) {
+          test =
+          <TouchableHighlight onPress={this.signOut.bind(this)}>
+              <Text style={styles.instructions}>
+                Click here to sign out
+              </Text>
+            </TouchableHighlight>
+        }
+        else{
+          test =
+          <GoogleSigninButton
+              style={{width: 48, height: 48}}
+              size={GoogleSigninButton.Size.Icon}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={this.signIn.bind(this)}
+            />
+        }
         return (
           <View style={styles.container}>
             <Text style={styles.instructions}>
@@ -77,17 +96,8 @@ class LoginView extends Component {
               Click the button below to log in with your Google account. If you are already logged in you may not see the Google OAuth popup.
               Your user details should be logged in Chrome.
             </Text>
-            <GoogleSigninButton
-              style={{width: 48, height: 48}}
-              size={GoogleSigninButton.Size.Icon}
-              color={GoogleSigninButton.Color.Dark}
-              onPress={this.signIn.bind(this)}
-            />
-            <TouchableHighlight onPress={this.signOut.bind(this)}>
-              <Text style={styles.instructions}>
-                Click here to sign out
-              </Text>
-            </TouchableHighlight>
+
+            {test}
 
             <Text style={styles.instructions}>
               Once logged in, retrieve your primary calendar by clicking below.
