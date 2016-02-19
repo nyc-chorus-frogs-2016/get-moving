@@ -33,7 +33,7 @@ class LoginView extends Component {
         .then((user) => {
           console.log(user);
           this.setState({user: user});
-          loadEventsFromCalendar();
+          this.loadEventsFromCalendar();
         })
         .catch((err) => {
           console.log('WRONG SIGNIN', err);
@@ -68,9 +68,9 @@ class LoginView extends Component {
 
       render() {
 
-        var test ;
+        var userAuth ;
         if (this.state.user) {
-          test =
+          userAuth =
           <TouchableHighlight onPress={this.signOut.bind(this)}>
               <Text style={styles.instructions}>
                 Click here to sign out
@@ -78,13 +78,12 @@ class LoginView extends Component {
             </TouchableHighlight>
         }
         else{
-          test =
+          userAuth =
           <GoogleSigninButton
               style={{width: 48, height: 48}}
               size={GoogleSigninButton.Size.Icon}
               color={GoogleSigninButton.Color.Dark}
-              onPress={this.signIn.bind(this)}
-            />
+              onPress={this.signIn.bind(this)}            />
         }
         return (
           <View style={styles.container}>
@@ -97,7 +96,7 @@ class LoginView extends Component {
               Your user details should be logged in Chrome.
             </Text>
 
-            {test}
+            {userAuth}
 
             <Text style={styles.instructions}>
               Once logged in, retrieve your primary calendar by clicking below.
