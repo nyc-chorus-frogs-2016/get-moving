@@ -1,0 +1,21 @@
+// Inside top level component render
+function handleToggle(calendarEvent) {
+
+}
+//grandparent (Events themselves and STATE live here)
+<EventList events={this.state.events} toggleHandler={this.handleToggle.bind(this)}
+
+will contain multiple instances of
+   <SingleEvent event={event} toggleHandler={this.props.toggleHandler} >   //parent
+     <TouchableHighlight onPress={this.props.toggleHandler.bind(this, event)} />  //child
+
+
+
+
+
+___________________________
+togglehandler is bound at the child level to a particular event and then the method calll is passed up to the parent which is then passed to the grand parent which changes the actual STATE of the event
+
+State flows downward only, views are rerendered if state changes
+
+
