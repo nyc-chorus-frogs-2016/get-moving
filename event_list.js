@@ -10,14 +10,8 @@ import React, {
   View,
 } from 'react-native';
 
-// var events = [
-// { name:'Dentist Appointment', startTime: '11:00AM', location: '43 Willow St.' },
-// { name:'Work', startTime: '9:00AM', location: '48 Wall St.'},
-// { name:'Meet John for drinks', startTime: '7:00PM', location: '32 Main St.' },
-// ];
 
-
-class TestScreen extends Component {
+class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,11 +61,10 @@ class TestScreen extends Component {
       <View style={styles.container}>
         <Image
           source={{uri:"https://lh5.ggpht.com/-oMUKnGIr7IUeAQaNoaY0VLJ5N_6lEZC7sSOS9tRm7W72ICH8I1-DVo-ovaODRMLlU0=w300" }}
-          // "https://upload.wikimedia.org/wikipedia/commons/4/47/Comic_image_missing.png"
           style={styles.thumbnail}/>
         <View style={styles.rightContainer}>
           <Text style={styles.name}>{event.summary}</Text>
-          <Text style={styles.time}>Time: {event.startTime}</Text>
+          <Text style={styles.time}>Time: {event.start.dateTime}</Text>
           <Text style={styles.location}>Location: {event.location}</Text>
         </View>
       </View>
@@ -86,8 +79,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    // borderWidth: 0.5,
-    // borderColor: '#d6d7da',
   },
   rightContainer: {
     flex: 1,
@@ -117,7 +108,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = TestScreen;
-
-// AppRegistry.registerComponent('DiaryList', () => DiaryList);
-// AppRegistry.registerComponent('GetMoving', () => GetMoving);
+module.exports = EventList;

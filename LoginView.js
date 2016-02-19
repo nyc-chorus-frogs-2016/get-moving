@@ -14,7 +14,7 @@ var {
 } = React;
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
-var TestScreen = require("./test-screen");
+var EventList = require("./event_list");
 
 class LoginView extends Component {
 
@@ -23,8 +23,6 @@ class LoginView extends Component {
       this.state = {
           events: []
       };
-      // });
-    // }
     GoogleSignin.configure({
         iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
         scopes: ["https://www.googleapis.com/auth/calendar"]
@@ -35,15 +33,22 @@ class LoginView extends Component {
         .then((user) => {
           console.log(user);
           this.setState({user: user});
+          this.loadEventsFromCalendar();
         })
         .catch((err) => {
           console.log('WRONG SIGNIN', err);
         })
         .done();
     }
+    signOut() {
+      GoogleSignin.signOut()
+        .then(() => {
+          console.log('out');
+        })
+        .catch((err) => {
+        });
+    }
     loadEventsFromCalendar() {
-      console.log(this)
-      console.log('button was pressed')
       fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
         headers: {
           "Authorization": "Bearer " + this.state.user.accessToken
@@ -55,13 +60,31 @@ class LoginView extends Component {
           this.setState( {events: json.items } )
           this.props.navigator.push({
           title: "Event List",
-          component: TestScreen,
+          component: EventList,
           passProps: {events: this.state.events},
         })
         })
     }
 
       render() {
+
+        var userAuth ;
+        if (this.state.user) {
+          userAuth =
+          <TouchableHighlight onPress={this.signOut.bind(this)}>
+              <Text style={styles.instructions}>
+                Click here to sign out
+              </Text>
+            </TouchableHighlight>
+        }
+        else{
+          userAuth =
+          <GoogleSigninButton
+              style={{width: 48, height: 48}}
+              size={GoogleSigninButton.Size.Icon}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={this.signIn.bind(this)}            />
+        }
         return (
           <View style={styles.container}>
             <Text style={styles.instructions}>
@@ -72,22 +95,13 @@ class LoginView extends Component {
               Click the button below to log in with your Google account. If you are already logged in you may not see the Google OAuth popup.
               Your user details should be logged in Chrome.
             </Text>
-            <GoogleSigninButton
-              style={{width: 48, height: 48}}
-              size={GoogleSigninButton.Size.Icon}
-              color={GoogleSigninButton.Color.Dark}
-              onPress={this.signIn.bind(this)}
-            />
+
+            {userAuth}
+
             <Text style={styles.instructions}>
               Once logged in, retrieve your primary calendar by clicking below.
               Watch the Chrome JS console to see the result
             </Text>
-
-            <TouchableHighlight onPress={this.submitPressed.bind(this)}>
-              <Text style={styles.instructions}>
-                Click here to go to Event List
-              </Text>
-            </TouchableHighlight>
 
             <TouchableHighlight onPress={this.loadEventsFromCalendar.bind(this)}>
               <Text style={styles.instructions}>
@@ -95,19 +109,8 @@ class LoginView extends Component {
               </Text>
             </TouchableHighlight>
 
-
           </View>
         );
-      }
-
-      submitPressed() {
-        console.log(this.state.events);
-        console.log("onSubmitPressed has been pressed");
-        this.props.navigator.push({
-          title: "Event List",
-          component: TestScreen,
-          passProps: {},
-        });
       }
 
     }
