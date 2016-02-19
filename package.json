@@ -1,0 +1,13 @@
+{
+  "name": "DiaryList",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react-native": "^0.20.0",
+    "react-native-background-geolocation": "^0.3.4",
+    "react-native-google-signin": "^0.4.0"
+  }
+}
