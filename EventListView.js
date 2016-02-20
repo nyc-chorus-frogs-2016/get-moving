@@ -10,7 +10,8 @@ import React, {
   View,
 } from 'react-native';
 
-var EventView = require("./EventView");
+import EventView from './EventView';
+const styles= require('./styles');
 
 class EventListView extends Component {
 
@@ -18,70 +19,21 @@ class EventListView extends Component {
     var rows = this.props.all_events.map((event) => {
       return (
         <EventView event={event} key={event.id}/>
-      );
+      )
     });
 
     return (
-      <View style={styles.eventContainer}>
+      <View style={styles.container}>
+        <TouchableHighlight onPress={this.props.signout}>
+          <Text style={styles.instructions}>
+            Click here to sign out
+          </Text>
+        </TouchableHighlight>
         {rows}
+
       </View>
     );
   }
 }
 
-var styles = StyleSheet.create({
-  eventContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  rightContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-  },
-  name: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  time: {
-    textAlign: 'center',
-  },
-  location: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    margin: 5,
-    width: 60,
-    height: 60,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    margin: 10,
-  },
-});
-
-
-
-
-module.exports = EventListView;
-
-  // render() {
-  //   return(
-  //     <View style={styles.container}>
-  //         <TouchableHighlight onPress={this.props.signOut}>
-  //             <Text style={styles.instructions}>
-  //                 Click here to sign out
-  //             </Text>
-  //         </TouchableHighlight>
-  //     </View>
-  //     )
+export default EventListView

@@ -2,10 +2,7 @@
 
 import BackgroundGeo from './geo-location';
 
-
-
 import React, {
-
     AppRegistry,
     Component,
     StyleSheet,
@@ -15,8 +12,9 @@ import React, {
     TouchableHighlight,
 }  from 'react-native';
 
-var EventListView = require("./EventListView");
+import EventListView from './EventListView'
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+const styles= require('./styles');
 
 class DiaryList extends Component {
     constructor() {
@@ -109,23 +107,13 @@ class DiaryList extends Component {
             return (
                 <View style={styles.container}>
                     <EventListView
-                        all_events={this.state.all_events} />
+                        all_events={this.state.all_events}
+                        signout={this.signOut.bind(this)} />
                 </View>
             );
         }
     }
 }
-
-var styles = StyleSheet.create({
-    navigationContainer: {
-        flex: 1
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      margin: 10,
-    },
-});
 
 AppRegistry.registerComponent('DiaryList', () => DiaryList);
 

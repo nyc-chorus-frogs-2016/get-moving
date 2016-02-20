@@ -10,7 +10,6 @@ import React, {
   View,
 } from 'react-native';
 
-
 class EventList extends Component {
   constructor(props) {
     super(props);
