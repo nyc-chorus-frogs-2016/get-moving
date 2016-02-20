@@ -109,7 +109,7 @@ class DiaryList extends Component {
             return (
                 <View style={styles.container}>
                     <EventListView
-                        events={this.state.all_events} />
+                        all_events={this.state.all_events} />
                 </View>
             );
         }

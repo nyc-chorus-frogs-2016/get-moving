@@ -15,17 +15,21 @@ class EventView extends Component {
   render() {
       var event = this.props.event
       return (
-        <View style={styles.container}>
+        <View style={styles.eventContainer}>
+
+          <View style={styles.rightContainer}>
             <Text style={styles.instructions}>
-            {event.summary}
+              {event.summary}
             </Text>
+          </View>
+
         </View>
       );
     }
 }
 
 var styles = StyleSheet.create({
-  container: {
+  eventContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',

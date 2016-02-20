@@ -17,12 +17,12 @@ class EventListView extends Component {
   render() {
     var rows = this.props.all_events.map((event) => {
       return (
-        <EventView event={event}/>
+        <EventView event={event} key={event.id}/>
       );
     });
 
     return (
-      <View style={styles.container}>
+      <View style={styles.eventContainer}>
         {rows}
       </View>
     );
@@ -30,7 +30,7 @@ class EventListView extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
+  eventContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
