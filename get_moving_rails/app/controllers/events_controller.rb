@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
 
   def create
-    # binding.pry
     event_params = JSON.parse(params.first[0])
+    binding.pry
     @event = Event.new(
       name: event_params["name"],
       address: event_params["address"],
