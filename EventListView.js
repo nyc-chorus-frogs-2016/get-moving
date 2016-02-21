@@ -30,7 +30,6 @@ class EventListView extends Component {
           </Text>
         </TouchableHighlight>
         {rows}
-
       </View>
     );
   }

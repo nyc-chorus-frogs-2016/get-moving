@@ -22,12 +22,15 @@ class DiaryList extends Component {
       this.state = { lat:0, lng: 0,
           all_events: [],
           on_events: [],
-          user: null
+          user: null,
+          next_event_coordinates: [],
+          current_coordinates: [40.706419, -74.009081], //DBC office coordinates. hardcoded for now
+          duration_to_next_event: null,
       };
       new BackgroundGeo(this);
-      // setInterval(() => {
-      //     this.doMainCheckLoop()
-      // }, 5000)
+      setInterval(() => {
+          this.doMainCheckLoop()
+      }, 5000)
 
   GoogleSignin.configure({
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -66,17 +69,40 @@ class DiaryList extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date());
+        var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date()).reverse();
         this.setState( {all_events: futureEvents } )
+      })
+  }
+
+  address_to_coordinates(address) {
+    var formatted_address = address.replace(/ /g,"+")
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + formatted_address + "&key=AIzaSyCCyBbVWsgVD7NQmDXcwF7w0GKbL00SiUA"
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({next_event_coordinates: [json.results['0'].geometry.location.lat, json.results['0'].geometry.location.lng]} )
       })
   }
 
   doMainCheckLoop() {
     if (this.state.user){
       this.loadEventsFromCalendar();
-      var nextEvent = this.state.all_events[0]
-      alert('Your next event is ' + nextEvent.summary);
+      var nextEvent = this.state.all_events[0];
+      this.address_to_coordinates(nextEvent.location);
+      this.trafficTime()
+      alert('Your next event is ' + nextEvent.summary + " takes " + this.state.duration_to_next_event + "seconds");
     }
+  }
+
+  trafficTime() {
+    //mode defaults to driving for now.
+    var url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.current_coordinates[0] + "," + this.state.current_coordinates[1] + "&destinations=" + this.state.next_event_coordinates[0] + "," + this.state.next_event_coordinates[1] + "&key=AIzaSyAz4HXhCsn9tZdJ24R3lCMZ2kFakiabDgw"
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json)
+        this.setState({duration_to_next_event: json.rows["0"].elements["0"].duration.value})
+      })
   }
 
   setLocation(lat, lng) {
