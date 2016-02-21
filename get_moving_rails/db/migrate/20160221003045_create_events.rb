@@ -8,6 +8,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :departure_time
       t.boolean  :is_latest, default: true
       t.boolean  :has_notified, default: false
+      #add device token here, t.uid? to  ID the users phone
 
       t.timestamps null: false
     end
