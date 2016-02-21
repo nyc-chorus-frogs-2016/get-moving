@@ -23,11 +23,11 @@ class DiaryList extends Component {
             all_events: [],
             on_events: [],
             user: null
-        // new BackgroundGeo(this);
-        // setInterval(() => {
-        //     this.doMainCheckLoop()
-        // }, 5000)
-    };
+        };
+        new BackgroundGeo(this);
+        setInterval(() => {
+            this.doMainCheckLoop()
+        }, 5000)
 
     GoogleSignin.configure({
         iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -66,12 +66,18 @@ class DiaryList extends Component {
       })
         .then((response) => response.json())
         .then((json) => {
-          console.log(json);
-          this.setState( {all_events: json.items } )
+          var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date());
+          this.setState( {all_events: futureEvents } )
         })
     }
 
-    // doMainCheckLoop() {}
+    doMainCheckLoop() {
+      if (this.state.user){
+        this.loadEventsFromCalendar();
+        alert('Your next event is ' + this.state.all_events[0].summary);
+        console.log(this.state.all_events[0]);
+      }
+    }
 
     setLocation(lat, lng) {
         this.setState({
