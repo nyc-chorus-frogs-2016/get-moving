@@ -31,5 +31,5 @@ Event.create!(name: 'Job Interview at Duane Reed',
               address: '60 Wall street',
               user_email: 'getmovingfinalproject@gmail.com',
               start_time: DateTime.parse('2016-02-21T21:05:21+00:00'),
-              departure_time: DateTime.parse('2016-02-21T21:39:21+00:00')
+              departure_time: DateTime.parse('2016-02-21T21:49:21+00:00')
               )
