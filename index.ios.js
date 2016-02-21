@@ -91,11 +91,11 @@ class DiaryList extends Component {
   doMainCheckLoop() {
     if (this.state.user){
       this.loadEventsFromCalendar();
-      this.address_to_coordinates(this.state.nextEvent.location);
+      this.address_to_coordinates(this.state.next_event.location);
       this.trafficTime()
       this.postToServer()
 
-      alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.duration_to_next_event + "seconds");
+      alert('Your next event is ' + this.state.next_event.summary + " takes " + this.state.duration_to_next_event + "seconds");
     }
   }
 
@@ -103,12 +103,12 @@ class DiaryList extends Component {
     fetch('http://localhost:3000/events',
       {method: "POST",
       body: JSON.stringify({
-        name: this.state.nextEvent.summary,
-        address: this.state.nextEvent.location,
+        name: this.state.next_event.summary,
+        address: this.state.next_event.location,
         user_email: "text@example.com",
-        start_time: this.state.nextEvent.start.dateTime,
+        start_time: this.state.next_event.start.dateTime
         //fix string to date time conversion
-        departure_time: this.state.nextEvent.start.dateTime - this.state.duration_to_next_event
+        // departure_time: this.state.next_event.start.dateTime - this.state.duration_to_next_event
       })
     })
     .then((response) => console.log(response))

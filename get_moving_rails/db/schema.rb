@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20160221003045) do
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.string   "name",                           null: false
-    t.string   "address",                        null: false
-    t.string   "user_email",                     null: false
-    t.datetime "start_time",                     null: false
-    t.datetime "departure_time",                 null: false
+    t.string   "name"
+    t.string   "address"
+    t.string   "user_email"
+    t.datetime "start_time"
+    t.datetime "departure_time"
     t.boolean  "is_latest",      default: true
     t.boolean  "has_notified",   default: false
     t.datetime "created_at",                     null: false
