@@ -27,9 +27,18 @@ Event.create!(name: 'Job Interview at Facebook',
               departure_time: DateTime.parse('2016-02-24T08:15:00+00:00')
               )
 
-Event.create!(name: 'Job Interview at Duane Reed',
+Event.create!(name: 'Job Interview at Duane Reade',
               address: '60 Wall street',
               user_email: 'getmovingfinalproject@gmail.com',
               start_time: DateTime.parse('2016-02-21T21:05:21+00:00'),
-              departure_time: DateTime.parse('2016-02-21T21:49:21+00:00')
+              departure_time: DateTime.parse('2016-02-21T22:50:21+00:00')
               )
+
+Event.create!(name: 'Job Interview at CVS',
+              address: '60 Wall street',
+              user_email: 'getmovingfinalproject@gmail.com',
+              start_time: DateTime.parse('2016-02-21T21:05:21+00:00'),
+              departure_time: DateTime.parse('2016-02-21T22:50:21+00:00'),
+              has_notified: true
+              )
+
