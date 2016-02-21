@@ -70,7 +70,16 @@ class DiaryList extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date()).reverse();
+        var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date()).sort(
+            function (a,b) {
+              if (new Date(a.start.dateTime) < new Date(b.start.dateTime))
+                return -1;
+              else if (new Date(a.start.dateTime) > new Date(b.start.dateTime))
+                return 1;
+              else
+                return 0;
+            }
+          );
         this.setState({
           allEvents: futureEvents,
           nextEvent: futureEvents[0]
@@ -108,9 +117,8 @@ class DiaryList extends Component {
         name: this.state.nextEvent.summary,
         address: this.state.nextEvent.location,
         user_email: "text@example.com",
-        start_time: this.state.nextEvent.start.dateTime
-        //fix string to date time conversion
-        // departure_time: this.state.nextEvent.start.dateTime - this.state.durationToNextEvent
+        start_time: new Date(this.state.next_event.start.dateTime),
+        departure_time: new Date(new Date(this.state.next_event.start.dateTime).getTime() - this.state.duration_to_next_event*1000)
       })
     })
     .then((response) => console.log(response))
