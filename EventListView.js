@@ -17,9 +17,9 @@ class EventListView extends Component {
 
   render() {
     var rows = this.props.all_events.map((event) => {
-      return (
-        <EventView event={event} key={event.id}/>
-      )
+        return (
+          <EventView event={event} key={event.id}/>
+        )
     });
 
     return (
