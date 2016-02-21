@@ -24,6 +24,7 @@ class DiaryList extends Component {
           on_events: [],
           user: null,
           next_event_coordinates: [],
+          next_event: null,
           current_coordinates: [40.706419, -74.009081], //DBC office coordinates. hardcoded for now
           duration_to_next_event: null,
       };
@@ -70,7 +71,10 @@ class DiaryList extends Component {
       .then((response) => response.json())
       .then((json) => {
         var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date()).reverse();
-        this.setState( {all_events: futureEvents } )
+        this.setState({
+          all_events: futureEvents,
+          next_event: futureEvents[0]
+         })
       })
   }
 
@@ -87,12 +91,28 @@ class DiaryList extends Component {
   doMainCheckLoop() {
     if (this.state.user){
       this.loadEventsFromCalendar();
-      var nextEvent = this.state.all_events[0];
-      this.address_to_coordinates(nextEvent.location);
+      this.address_to_coordinates(this.state.nextEvent.location);
       this.trafficTime()
-      alert('Your next event is ' + nextEvent.summary + " takes " + this.state.duration_to_next_event + "seconds");
+      this.postToServer()
+
+      alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.duration_to_next_event + "seconds");
     }
   }
+
+  postToServer(){
+    fetch('http://localhost:3000/events',
+      {method: "POST",
+      body: JSON.stringify({
+        name: this.state.nextEvent.summary,
+        address: this.state.nextEvent.location,
+        user_email: "text@example.com",
+        start_time: this.state.nextEvent.start.dateTime,
+        //fix string to date time conversion
+        departure_time: this.state.nextEvent.start.dateTime - this.state.duration_to_next_event
+      })
+    })
+    .then((response) => console.log(response))
+    }
 
   trafficTime() {
     //mode defaults to driving for now.
