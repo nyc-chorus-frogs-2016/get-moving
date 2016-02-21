@@ -20,13 +20,13 @@ class DiaryList extends Component {
   constructor() {
       super();
       this.state = { lat:0, lng: 0,
-          all_events: [],
-          on_events: [],
+          allEvents: [],
+          onEvents: [],
           user: null,
-          next_event_coordinates: [],
-          next_event: null,
-          current_coordinates: [40.706419, -74.009081], //DBC office coordinates. hardcoded for now
-          duration_to_next_event: null,
+          nextEventCoordinates: [],
+          nextEvent: null,
+          currentCoordinates: [40.706419, -74.009081], //DBC office coordinates. hardcoded for now
+          durationToNextEvent: null,
       };
       new BackgroundGeo(this);
       setInterval(() => {
@@ -63,7 +63,7 @@ class DiaryList extends Component {
   }
 
   loadEventsFromCalendar() {
-    fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+    return fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
       headers: {
         "Authorization": "Bearer " + this.state.user.accessToken
       }
@@ -72,30 +72,32 @@ class DiaryList extends Component {
       .then((json) => {
         var futureEvents = json.items.filter((event) => new Date(event.start.dateTime) > new Date()).reverse();
         this.setState({
-          all_events: futureEvents,
-          next_event: futureEvents[0]
+          allEvents: futureEvents,
+          nextEvent: futureEvents[0]
          })
       })
   }
 
-  address_to_coordinates(address) {
-    var formatted_address = address.replace(/ /g,"+")
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + formatted_address + "&key=AIzaSyCCyBbVWsgVD7NQmDXcwF7w0GKbL00SiUA"
+  addressToCoordinates(address) {
+    var formattedAddress = address.replace(/ /g,"+")
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + formattedAddress + "&key=AIzaSyCCyBbVWsgVD7NQmDXcwF7w0GKbL00SiUA"
     return fetch(url)
       .then((response) => response.json())
       .then((json) => {
-        this.setState({next_event_coordinates: [json.results['0'].geometry.location.lat, json.results['0'].geometry.location.lng]} )
+        this.setState({nextEventCoordinates: [json.results['0'].geometry.location.lat, json.results['0'].geometry.location.lng]} )
       })
   }
 
   doMainCheckLoop() {
     if (this.state.user){
-      this.loadEventsFromCalendar();
-      this.address_to_coordinates(this.state.next_event.location);
-      this.trafficTime()
-      this.postToServer()
-
-      alert('Your next event is ' + this.state.next_event.summary + " takes " + this.state.duration_to_next_event + "seconds");
+      this.loadEventsFromCalendar().then(() => {
+        this.addressToCoordinates(this.state.nextEvent.location);
+      }).then(() => {
+        this.trafficTime().then(() => {
+          this.postToServer()
+          alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.durationToNextEvent + "seconds");
+          });
+        })
     }
   }
 
@@ -103,12 +105,12 @@ class DiaryList extends Component {
     fetch('http://localhost:3000/events',
       {method: "POST",
       body: JSON.stringify({
-        name: this.state.next_event.summary,
-        address: this.state.next_event.location,
+        name: this.state.nextEvent.summary,
+        address: this.state.nextEvent.location,
         user_email: "text@example.com",
-        start_time: this.state.next_event.start.dateTime
+        start_time: this.state.nextEvent.start.dateTime
         //fix string to date time conversion
-        // departure_time: this.state.next_event.start.dateTime - this.state.duration_to_next_event
+        // departure_time: this.state.nextEvent.start.dateTime - this.state.durationToNextEvent
       })
     })
     .then((response) => console.log(response))
@@ -116,12 +118,12 @@ class DiaryList extends Component {
 
   trafficTime() {
     //mode defaults to driving for now.
-    var url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.current_coordinates[0] + "," + this.state.current_coordinates[1] + "&destinations=" + this.state.next_event_coordinates[0] + "," + this.state.next_event_coordinates[1] + "&key=AIzaSyAz4HXhCsn9tZdJ24R3lCMZ2kFakiabDgw"
+    var url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.currentCoordinates[0] + "," + this.state.currentCoordinates[1] + "&destinations=" + this.state.nextEventCoordinates[0] + "," + this.state.nextEventCoordinates[1] + "&key=AIzaSyAz4HXhCsn9tZdJ24R3lCMZ2kFakiabDgw"
     return fetch(url)
       .then((response) => response.json())
       .then((json) => {
         console.log(json)
-        this.setState({duration_to_next_event: json.rows["0"].elements["0"].duration.value})
+        this.setState({durationToNextEvent: json.rows["0"].elements["0"].duration.value})
       })
   }
 
@@ -132,11 +134,11 @@ class DiaryList extends Component {
     })
   }
 
-  turn_off_event(event) {
+  turnOffEvent(event) {
 
   }
 
-  turn_on_event(event) {
+  turnOnEvent(event) {
 
   }
 
@@ -159,7 +161,7 @@ class DiaryList extends Component {
       return (
         <View style={styles.container}>
           <EventListView
-              all_events={this.state.all_events}
+              allEvents={this.state.allEvents}
               signout={this.signOut.bind(this)} />
         </View>
       );

@@ -16,7 +16,7 @@ const styles= require('./styles');
 class EventListView extends Component {
 
   render() {
-    var rows = this.props.all_events.map((event) => {
+    var rows = this.props.allEvents.map((event) => {
         return (
           <EventView event={event} key={event.id}/>
         )
