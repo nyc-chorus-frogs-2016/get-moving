@@ -143,15 +143,23 @@ class DiaryList extends Component {
     })
   }
 
-  turnOffEvent(event) {
-
-  }
-
-  turnOnEvent(event) {
-
-  }
   reminderChange(id, value) {
- // send put request to google to update reminders.useDefault
+    console.log(id)
+    console.log(value)
+    fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + id, {
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + this.state.user.accessToken,
+      },
+      body: JSON.stringify({
+        "kind": "calendar#event",
+        "id": id,
+        "reminders": {"useDefault":value}
+      })
+    })
+      .then((response) => {
+        return response.json();
+      }).then((json) => console.log(json));
   }
 
   render() {
