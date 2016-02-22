@@ -19,13 +19,13 @@ const styles= require('./styles');
 class DiaryList extends Component {
   constructor() {
       super();
-      this.state = { lat:0, lng: 0,
+      this.state = {
           allEvents: [],
           onEvents: [],
           user: null,
           nextEventCoordinates: [],
           nextEvent: null,
-          currentCoordinates: [40.706419, -74.009081], //DBC office coordinates. hardcoded for now
+          currentCoordinates: [],
           durationToNextEvent: null,
       };
       new BackgroundGeo(this);
@@ -136,10 +136,9 @@ class DiaryList extends Component {
       })
   }
 
-  setLocation(lat, lng) {
+  setLocation(latitude, longitude) {
     this.setState({
-      lat: lat,
-      lng:lng
+      currentCoordinates: [latitude, longitude]
     })
   }
 
