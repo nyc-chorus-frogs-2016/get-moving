@@ -31,7 +31,7 @@ class DiaryList extends Component {
       new BackgroundGeo(this);
       setInterval(() => {
           this.doMainCheckLoop()
-      }, 5000)
+      }, 60000)
 
   GoogleSignin.configure({
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -142,15 +142,20 @@ class DiaryList extends Component {
     })
   }
 
-  turnOffEvent(event) {
-
-  }
-
-  turnOnEvent(event) {
-
-  }
   reminderChange(id, value) {
- // send put request to google to update reminders.useDefault
+    return fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + id, {
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + this.state.user.accessToken,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "extendedProperties": {"private":{"reminder": value}}
+      })
+    })
+      .then((response) => {
+        this.loadEventsFromCalendar()
+      });
   }
 
   render() {

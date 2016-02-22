@@ -17,6 +17,16 @@ class EventView extends Component {
   constructor() {
     super();
   }
+
+
+
+  reminder(event) {
+    if (event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.reminder ) {
+      return JSON.parse(event.extendedProperties.private.reminder)
+    }
+    return false
+  }
+
   render() {
     var event = this.props.event
     return (
@@ -32,7 +42,7 @@ class EventView extends Component {
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
             style={{marginBottom: 10}}
-            value={event.reminders.useDefault} />
+            value={this.reminder(event)} />
       </View>
       );
   }
