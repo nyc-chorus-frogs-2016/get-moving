@@ -6,7 +6,7 @@ end
 task :find_upcoming => :environment do
   alert_range =
   if Event.where(departure_time: (Time.now)..(Time.now + 600)).where(has_notified: false).empty?
-    puts "You have no events in the next 5 minutes, go relax for a bit"
+    puts "You have no events in the next 10 minutes, go relax for a bit"
   else
   events_to_alert = Event.where(departure_time: (Time.now)..(Time.now + 600)).where(has_notified: false).each do |event|
       puts "event is " + ((event.departure_time - Time.now)/60).to_s + " minutes away"
@@ -16,5 +16,4 @@ task :find_upcoming => :environment do
     end
   end
 end
-
 
