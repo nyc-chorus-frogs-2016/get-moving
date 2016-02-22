@@ -18,7 +18,7 @@ class BackgroundGeo {
       debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
 
       // HTTP / SQLite config
-      url: 'http://posttestserver.com/post.php?dump&dir=sc-fr-b-geoloc',
+      // url: 'http://posttestserver.com/post.php?dump&dir=sc-fr-b-geoloc',
       batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
       autoSync: false,         // <-- [Default: true] Set true to sync each location to server as it arrives.
       maxDaysToPersist: 1
