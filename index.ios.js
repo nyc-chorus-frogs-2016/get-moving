@@ -3,8 +3,10 @@
 import BackgroundGeo from './geo-location';
 
 import React, {
+  AlertIOS,
   AppRegistry,
   Component,
+  PushNotificationIOS,
   StyleSheet,
   Text,
   View,
@@ -29,6 +31,7 @@ class DiaryList extends Component {
           durationToNextEvent: null,
       };
       new BackgroundGeo(this);
+      PushNotificationIOS.addEventListener('notification', this.onNotification);
       setInterval(() => {
           this.doMainCheckLoop()
       }, 60000)
@@ -37,6 +40,17 @@ class DiaryList extends Component {
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
       scopes: ["https://www.googleapis.com/auth/calendar"]
     });
+  }
+
+  onNotification() {
+    AlertIOS.alert(
+      'Notification Received',
+      'Alert message: ' + notification.getMessage(),
+      [{
+        text: 'Dismiss',
+        onPress: null,
+      }]
+    );
   }
 
   signIn() {
