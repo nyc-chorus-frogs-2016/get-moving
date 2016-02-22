@@ -18,7 +18,9 @@ class EventListView extends Component {
   render() {
     var rows = this.props.allEvents.map((event) => {
         return (
-          <EventView event={event} key={event.id}/>
+          <EventView event={event}
+          reminderChange={this.props.reminderChange.bind(null, event.id)}
+          key={event.id}/>
         )
     });
 
