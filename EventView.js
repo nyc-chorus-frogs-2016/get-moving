@@ -5,6 +5,7 @@ import React, {
   Image,
   ListView,
   StyleSheet,
+  Switch,
   Text,
   TouchableHighlight,
   View,
@@ -13,6 +14,9 @@ import React, {
 const styles= require('./styles');
 
 class EventView extends Component {
+  constructor() {
+    super();
+  }
   render() {
     var event = this.props.event
     return (
@@ -25,7 +29,10 @@ class EventView extends Component {
           <Text style={styles.time}>Time: {event.start.dateTime}</Text>
           <Text style={styles.location}>Location: {event.location}</Text>
         </View>
-
+          <Switch
+            onValueChange={(value) => this.props.reminderChange(value)  }
+            style={{marginBottom: 10}}
+            value={event.reminders.useDefault} />
       </View>
       );
   }

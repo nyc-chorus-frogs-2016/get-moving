@@ -104,7 +104,7 @@ class DiaryList extends Component {
       }).then(() => {
         this.trafficTime().then(() => {
           this.postToServer()
-          alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.durationToNextEvent + "seconds");
+         // alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.durationToNextEvent + "seconds");
           });
         })
     }
@@ -150,6 +150,9 @@ class DiaryList extends Component {
   turnOnEvent(event) {
 
   }
+  reminderChange(id, value) {
+ // send put request to google to update reminders.useDefault
+  }
 
   render() {
     if (!this.state.user) {
@@ -171,6 +174,7 @@ class DiaryList extends Component {
         <View style={styles.container}>
           <EventListView
               allEvents={this.state.allEvents}
+              reminderChange={this.reminderChange.bind(this)}
               signout={this.signOut.bind(this)} />
         </View>
       );
