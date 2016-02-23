@@ -11,6 +11,8 @@ import React, {
   View,
 } from 'react-native';
 
+import Mode from './Mode';
+
 const styles= require('./styles');
 
 class EventView extends Component {
@@ -43,6 +45,7 @@ class EventView extends Component {
             onValueChange={(value) => this.props.reminderChange(value)  }
             style={{marginBottom: 10}}
             value={this.reminder(event)} />
+            {this.reminder(event) ? <Mode mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "Driving" } /> : null}
       </View>
       );
   }

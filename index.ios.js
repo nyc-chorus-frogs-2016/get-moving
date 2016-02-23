@@ -36,7 +36,7 @@ class DiaryList extends Component {
 
       setInterval(() => {
           this.doMainCheckLoop()
-      }, 1000)
+      }, 5000)
 
   GoogleSignin.configure({
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -103,8 +103,8 @@ class DiaryList extends Component {
           );
         this.setState({
           allEvents: futureEvents,
-          nextEvent: futureEvents[0]
-         })
+          nextEvent: futureEvents.filter(function(event) {return event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.reminder == "true"})[0]
+         });
       })
   }
 
@@ -127,23 +127,34 @@ class DiaryList extends Component {
       }).then(() => {
         this.trafficTime().then(() => {
           this.postToServer()
-         // alert('Your next event is ' + this.state.nextEvent.summary + " takes " + this.state.durationToNextEvent + "seconds");
+          console.log(this.state.nextEvent.creator.email)
+          console.log(this.state.nextEventCoordinates[1])
+          console.log(this.state.nextEventCoordinates[0])
+          console.log(this.state.currentCoordinates[1])
+          console.log(this.state.currentCoordinates[0])
+          console.log(new Date(this.state.nextEvent.start.dateTime))
+          console.log(new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000))
+          console.log(this.state.deviceToken)
           });
         })
-    }
+    };
   }
 
   postToServer(){
-    fetch('https://secret-cliffs-77425.herokuapp.com/events',
+    fetch('http://secret-cliffs-77425.herokuapp.com/events',
       {
         headers: {
         "Content-type": "application/json"
       },
       method: "POST",
       body: JSON.stringify({
-        name: this.state.nextEvent.summary,
         address: this.state.nextEvent.location,
-        user_email: "text@example.com",
+        user_email: this.state.nextEvent.creator.email,
+        name: this.state.nextEvent.summary,
+        event_lng: this.state.nextEventCoordinates[1],
+        event_lat: this.state.nextEventCoordinates[0],
+        user_lng: this.state.currentCoordinates[1],
+        user_lat: this.state.currentCoordinates[0],
         start_time: new Date(this.state.nextEvent.start.dateTime),
         departure_time: new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000),
         device_token: this.state.deviceToken
@@ -215,4 +226,3 @@ class DiaryList extends Component {
 }
 
 AppRegistry.registerComponent('DiaryList', () => DiaryList);
-
