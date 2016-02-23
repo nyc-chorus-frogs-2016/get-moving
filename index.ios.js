@@ -32,9 +32,10 @@ class DiaryList extends Component {
       };
       new BackgroundGeo(this);
       PushNotificationIOS.addEventListener('notification', this.onNotification);
+
       setInterval(() => {
           this.doMainCheckLoop()
-      }, 60000)
+      }, 1000)
 
   GoogleSignin.configure({
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -42,7 +43,8 @@ class DiaryList extends Component {
     });
   }
 
-  onNotification() {
+  onNotification(notification) {
+    console.log(arguments)
     AlertIOS.alert(
       'Notification Received',
       'Alert message: ' + notification.getMessage(),
@@ -112,6 +114,7 @@ class DiaryList extends Component {
   }
 
   doMainCheckLoop() {
+    console.log('app props', this.appProperties)
     if (this.state.user){
       this.loadEventsFromCalendar().then(() => {
         this.addressToCoordinates(this.state.nextEvent.location);
@@ -125,8 +128,12 @@ class DiaryList extends Component {
   }
 
   postToServer(){
-    fetch('http://localhost:3000/events',
-      {method: "POST",
+    fetch('https://secret-cliffs-77425.herokuapp.com/events',
+      {
+        headers: {
+        "Content-type": "application/json"
+      },
+      method: "POST",
       body: JSON.stringify({
         name: this.state.nextEvent.summary,
         address: this.state.nextEvent.location,
@@ -135,7 +142,7 @@ class DiaryList extends Component {
         departure_time: new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000)
       })
     })
-    .then((response) => console.log(response))
+    .then((response) => console.log(response)).catch(() => console.log(arguments))
     }
 
   trafficTime() {
