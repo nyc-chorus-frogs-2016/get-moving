@@ -32,6 +32,7 @@ class DiaryList extends Component {
       };
       new BackgroundGeo(this);
       PushNotificationIOS.addEventListener('notification', this.onNotification);
+      PushNotificationIOS.addEventListener('register', this.storeDeviceToken.bind(this));
 
       setInterval(() => {
           this.doMainCheckLoop()
@@ -41,6 +42,10 @@ class DiaryList extends Component {
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
       scopes: ["https://www.googleapis.com/auth/calendar"]
     });
+  }
+
+  storeDeviceToken(token) {
+    this.setState({deviceToken: token});
   }
 
   onNotification(notification) {
@@ -139,7 +144,8 @@ class DiaryList extends Component {
         address: this.state.nextEvent.location,
         user_email: "text@example.com",
         start_time: new Date(this.state.nextEvent.start.dateTime),
-        departure_time: new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000)
+        departure_time: new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000),
+        device_token: this.state.deviceToken
       })
     })
     .then((response) => console.log(response)).catch(() => console.log(arguments))
