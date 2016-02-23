@@ -11,8 +11,11 @@
 
 #import "RCTRootView.h"
 #import "RNGoogleSignin.h"
+#import "RCTPushNotificationManager.h"
 
 @implementation AppDelegate
+
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,7 +35,7 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.61:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
@@ -41,7 +44,8 @@
    */
 
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-
+  
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"DiaryList"
                                                initialProperties:nil
@@ -60,5 +64,37 @@
 
   return [RNGoogleSignin application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
+
+NSString* stringFromDeviceTokenData(NSData *deviceToken)
+{
+  const char *data = [deviceToken bytes];
+  NSMutableString* token = [NSMutableString string];
+  
+  for (int i = 0; i < [deviceToken length]; i++) {
+    [token appendFormat:@"%02.2hhX", data[i]];
+  }
+  
+  return token;
+}
+
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+   NSString *deviceTokenAsString = stringFromDeviceTokenData(deviceToken);
+   NSLog(@"deviceToken: %@", deviceTokenAsString);
+}
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:notification];
+}
+
 
 @end
