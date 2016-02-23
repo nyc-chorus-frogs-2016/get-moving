@@ -110,6 +110,7 @@ class DiaryList extends Component {
 
   addressToCoordinates(address) {
     var formattedAddress = address.replace(/ /g,"+")
+    formattedAddress = address.replace(/&/g,"%26")
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + formattedAddress + "&key=AIzaSyCCyBbVWsgVD7NQmDXcwF7w0GKbL00SiUA"
     return fetch(url)
       .then((response) => response.json())
