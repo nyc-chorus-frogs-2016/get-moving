@@ -8,6 +8,7 @@ import React, {
   Component,
   PushNotificationIOS,
   StyleSheet,
+  ScrollView,
   Text,
   View,
   NavigatorIOS,
@@ -204,22 +205,22 @@ class DiaryList extends Component {
           <Text style={styles.instructions}>
             Click the button below to log in with your Google account
           </Text>
-          <GoogleSigninButton
-            style={{width: 48, height: 48}}
-            size={GoogleSigninButton.Size.Icon}
-            color={GoogleSigninButton.Color.Dark}
+          <GoogleSigninButton style={styles.googleButton}
+            // style={{width: 48, height: 48}}
+            // size={GoogleSigninButton.Size.Icon}
+            // color={GoogleSigninButton.Color.Dark}
             onPress={this.signIn.bind(this)}/>
         </View>
       )
     }
     else {
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <EventListView
               allEvents={this.state.allEvents}
               reminderChange={this.reminderChange.bind(this)}
               signout={this.signOut.bind(this)} />
-        </View>
+        </ScrollView>
       );
     }
   }

@@ -4,15 +4,16 @@ import React, {StyleSheet} from 'react-native';
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#F5FCFF',
+    backgroundColor: '#7ec0ee',
     borderColor: '#CCCCCC',
-    marginTop: 5
+    margin: 10,
+    marginTop: 30,
+    padding: 10
   },
   eventContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
     borderColor: '#CCCCCC'
@@ -30,6 +31,12 @@ module.exports = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  googleButton: {
+    width: 60,
+    height: 60,
+    flex:1
+    // alignItems:'center'
+  },
   thumbnail: {
     width: 40,
     height: 30,
@@ -40,7 +47,8 @@ module.exports = StyleSheet.create({
     height: 60,
   },
   contentContainer: {
-    paddingVertical: 20
+    paddingVertical: 20,
+    justifyContent: 'center'
   },
   name: {
     fontSize: 20,
