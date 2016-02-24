@@ -22,6 +22,7 @@ module.exports = StyleSheet.create({
   },
   rightContainer: {
     flex: 1,
+    margin: 10,
   },
   instructions: {
     textAlign: 'center',
@@ -43,12 +44,18 @@ module.exports = StyleSheet.create({
     fontFamily: 'Avenir-Book',
   },
   time: {
-    textAlign: 'center',
+    // textAlign: 'center',
     fontFamily: 'Avenir-Book',
-
+  },
+  bold: {
+    fontFamily: 'Avenir-Book',
+    fontWeight: 'bold',
+  },
+  dateContainer: {
+    textAlign: 'center',
   },
   location: {
-    textAlign: 'center',
+    // textAlign: 'center',
     fontFamily: 'Avenir-Book',
   },
   signin: {
