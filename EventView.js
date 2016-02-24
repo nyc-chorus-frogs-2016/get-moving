@@ -48,6 +48,13 @@ class EventView extends Component {
           <Text>
             <Text style={styles.bold}>Where: </Text><Text style={styles.location}>Location: {event.location}</Text>
           </Text>
+
+          {this.reminder(event) ?
+              <Mode
+              mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"}
+              modeChange = {this.props.modeChange.bind(null, event.id)} />
+             : null}
+
         </View>
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
