@@ -205,7 +205,7 @@ class DiaryList extends Component {
           <Text style={styles.instructions}>
             Click the button below to log in with your Google account
           </Text>
-          <GoogleSigninButton style={styles.googleButton}
+          <GoogleSigninButton
             style={{width: 48, height: 48}}
             size={GoogleSigninButton.Size.Icon}
             color={GoogleSigninButton.Color.Dark}
