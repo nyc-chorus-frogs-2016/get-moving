@@ -34,9 +34,9 @@ class DiaryList extends Component {
       PushNotificationIOS.addEventListener('notification', this.onNotification);
       PushNotificationIOS.addEventListener('register', this.storeDeviceToken.bind(this));
 
-      setInterval(() => {
-          this.doMainCheckLoop()
-      }, 5000)
+      // setInterval(() => {
+      //     this.doMainCheckLoop()
+      // }, 5000)
 
   GoogleSignin.configure({
       iosClientId: "430891231916-hej7na4spktej6ofjofis7gphtlg5op3.apps.googleusercontent.com",
@@ -205,7 +205,7 @@ class DiaryList extends Component {
             Click the button below to log in with your Google account
           </Text>
           <GoogleSigninButton
-            style={{width: 48, height: 48}}
+            style={styles.signin}
             size={GoogleSigninButton.Size.Icon}
             color={GoogleSigninButton.Color.Dark}
             onPress={this.signIn.bind(this)}/>
@@ -214,7 +214,7 @@ class DiaryList extends Component {
     }
     else {
       return (
-        <View style={styles.container}>
+        <View>
           <EventListView
               allEvents={this.state.allEvents}
               reminderChange={this.reminderChange.bind(this)}

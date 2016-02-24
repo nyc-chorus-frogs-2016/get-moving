@@ -25,13 +25,16 @@ class EventListView extends Component {
     });
 
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={this.props.signout}>
-          <Text style={styles.instructions}>
-            Click here to sign out
-          </Text>
-        </TouchableHighlight>
-        {rows}
+      <View>
+        <View style= {styles.toolbar}>
+          <Text style={styles.toolbarGreeting}>Welcome to DiaryList</Text>
+          <TouchableHighlight onPress={this.props.signout}>
+            <Text style={styles.signout}>Sign Out</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.container}>
+          {rows}
+        </View>
       </View>
     );
   }

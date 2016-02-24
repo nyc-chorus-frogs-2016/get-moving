@@ -34,16 +34,16 @@ class EventView extends Component {
     return (
       <View style={styles.eventContainer}>
         <Image
-        source={{uri:"https://lh5.ggpht.com/-oMUKnGIr7IUeAQaNoaY0VLJ5N_6lEZC7sSOS9tRm7W72ICH8I1-DVo-ovaODRMLlU0=w300" }}
+        source={{uri:"https://pidome.org/assets/site/images/events/default-event-image.png" }}
         style={styles.thumbnail}/>
         <View style={styles.rightContainer}>
           <Text style={styles.name}>{event.summary}</Text>
-          <Text style={styles.time}>Time: {event.start.dateTime}</Text>
+          <Text style={styles.time}>Time: {new Date(event.start.dateTime).}</Text>
           <Text style={styles.location}>Location: {event.location}</Text>
         </View>
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
-            style={{marginBottom: 10}}
+            // style={{marginBottom: 10}}
             value={this.reminder(event)} />
             {this.reminder(event) ? <Mode mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "Driving" } /> : null}
       </View>
