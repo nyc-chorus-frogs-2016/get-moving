@@ -13,8 +13,6 @@ import React, {
 
 var PickerItemIOS = PickerIOS.Item;
 
-var MODE = ["Driving", "Walking"]
-
 const styles= require('./styles');
 
 class Mode extends Component {
@@ -22,25 +20,27 @@ class Mode extends Component {
   render() {
     return (
       <View>
-        <Text>
 
-          <PickerIOS
-            selectedValue = {this.props.mode}
-            onValueChange = {(mode) => this.props.modeChange(mode)}>
-              <PickerItemIOS
-                key="Driving"
-                value="Driving"
-                label="Driving"/>
+          <PickerIOS>
               <PickerItemIOS
                 key="Walking"
                 value="Walking"
                 label="Walking"/>
-        </PickerIOS>
+              <PickerItemIOS
+                key="Driving"
+                value="Driving"
+                label="Driving"/>
+          </PickerIOS>
 
-        </Text>
+
       </View>
     );
   }
 }
 
 export default Mode
+
+
+        // <Text>
+        //   {this.props.mode}
+        // </Text>

@@ -175,10 +175,6 @@ class DiaryList extends Component {
       });
   }
 
-  modeChange(id, mode){
-
-  }
-
   render() {
     if (!this.state.user) {
       return (
@@ -199,7 +195,6 @@ class DiaryList extends Component {
         <View style={styles.container}>
           <EventListView
               allEvents={this.state.allEvents}
-              modeChange={this.modeChange.bind(this)}
               reminderChange={this.reminderChange.bind(this)}
               signout={this.signOut.bind(this)} />
         </View>
