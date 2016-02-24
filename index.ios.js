@@ -140,6 +140,7 @@ class DiaryList extends Component {
       },
       method: "POST",
       body: JSON.stringify({
+        id: this.state.nextEvent.id,
         address: this.state.nextEvent.location,
         user_email: this.state.nextEvent.creator.email,
         name: this.state.nextEvent.summary,
