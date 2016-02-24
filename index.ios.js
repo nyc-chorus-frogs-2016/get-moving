@@ -125,17 +125,7 @@ class DiaryList extends Component {
       this.loadEventsFromCalendar().then(() => {
         this.addressToCoordinates(this.state.nextEvent.location);
       }).then(() => {
-        this.trafficTime().then(() => {
           this.postToServer()
-          console.log(this.state.nextEvent.creator.email)
-          console.log(this.state.nextEventCoordinates[1])
-          console.log(this.state.nextEventCoordinates[0])
-          console.log(this.state.currentCoordinates[1])
-          console.log(this.state.currentCoordinates[0])
-          console.log(new Date(this.state.nextEvent.start.dateTime))
-          console.log(new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000))
-          console.log(this.state.deviceToken)
-          });
         })
     };
   }
@@ -163,18 +153,6 @@ class DiaryList extends Component {
     .then((response) => console.log(response)).catch(() => console.log(arguments))
     }
 
-  trafficTime() {
-    //mode defaults to driving for now.
-    var url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.state.currentCoordinates[0] + "," + this.state.currentCoordinates[1] + "&destinations=" + this.state.nextEventCoordinates[0] + "," + this.state.nextEventCoordinates[1] + "&key=AIzaSyAz4HXhCsn9tZdJ24R3lCMZ2kFakiabDgw"
-    console.log(url)
-    return fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json)
-        this.setState({durationToNextEvent: json.rows["0"].elements["0"].duration.value})
-      })
-  }
-
   setLocation(latitude, longitude) {
     this.setState({
       currentCoordinates: [latitude, longitude]
@@ -197,6 +175,10 @@ class DiaryList extends Component {
       });
   }
 
+  modeChange(id, mode){
+
+  }
+
   render() {
     if (!this.state.user) {
       return (
@@ -217,6 +199,7 @@ class DiaryList extends Component {
         <View style={styles.container}>
           <EventListView
               allEvents={this.state.allEvents}
+              modeChange={this.modeChange.bind(this)}
               reminderChange={this.reminderChange.bind(this)}
               signout={this.signOut.bind(this)} />
         </View>
