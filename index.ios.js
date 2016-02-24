@@ -125,12 +125,14 @@ class DiaryList extends Component {
     if (this.state.user){
       this.loadEventsFromCalendar().then(() => {
         this.addressToCoordinates(this.state.nextEvent.location);
-      }).then(() => this.postToServer())
+      }).then(() => {
+        console.log(this.state.nextEvent)
+        this.postToServer()})
     }
   };
 
   postToServer(){
-    fetch('http://secret-cliffs-77425.herokuapp.com/events',
+    fetch('http://rails-on-do.com/events',
       {
         headers: {
         "Content-type": "application/json"

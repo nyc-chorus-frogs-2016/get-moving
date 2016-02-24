@@ -1,0 +1,22 @@
+man curl
+clear
+ls -ltr ??
+
+
+rm //just a file
+rm -rf //remove a directory
+cat //read a file
+curl www.nba.com //open the web
+curl www.nba.com > output.html //write to a file
+curl -r 0-99 README.md //grabs the first 99 characters on README.md
+curl -r -99 README.md
+curl -T
+vim
+
+
+vi
+ls -la
+ls -ltr
+ssh
+
+top -ocpu
