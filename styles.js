@@ -3,8 +3,8 @@ import React, {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#024959',
+    flex: 1,
+    backgroundColor: 'transparent',
   },
   contentContainer: {
     paddingVertical: 20,
