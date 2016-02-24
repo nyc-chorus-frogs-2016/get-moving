@@ -12,6 +12,7 @@ import React, {
 } from 'react-native';
 
 const styles= require('./styles');
+import Mode from './Mode';
 
 class EventView extends Component {
   constructor() {
@@ -54,6 +55,7 @@ class EventView extends Component {
               mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"}
               modeChange = {this.props.modeChange.bind(null, event.id)} />
              : null}
+
 
         </View>
           <Switch
