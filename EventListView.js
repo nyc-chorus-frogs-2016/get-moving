@@ -20,6 +20,7 @@ class EventListView extends Component {
         return (
           <EventView event={event}
           reminderChange={this.props.reminderChange.bind(null, event.id)}
+          modeChange={this.props.modeChange.bind(this)}
           key={event.id}/>
         )
     });

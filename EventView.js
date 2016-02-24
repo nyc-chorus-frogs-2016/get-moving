@@ -43,7 +43,8 @@ class EventView extends Component {
 
           {this.reminder(event) ?
               <Mode
-              mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"} />
+              mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"}
+              modeChange = {this.props.modeChange.bind(null, event.id)} />
              : null}
 
         </View>

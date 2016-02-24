@@ -23,7 +23,7 @@ class Mode extends Component {
 
           <PickerIOS
           selectedValue={this.props.mode}
-          onValueChange={(mode) => console.log(mode)}>
+          onValueChange={(mode) => this.props.modeChange(mode)}>
               <PickerItemIOS
                 key="walking"
                 value="walking"
