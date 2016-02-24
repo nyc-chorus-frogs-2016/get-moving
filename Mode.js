@@ -45,5 +45,3 @@ class Mode extends Component {
 }
 
 export default Mode
-
-
