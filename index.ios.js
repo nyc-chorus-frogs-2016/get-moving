@@ -206,9 +206,9 @@ class DiaryList extends Component {
             Click the button below to log in with your Google account
           </Text>
           <GoogleSigninButton style={styles.googleButton}
-            // style={{width: 48, height: 48}}
-            // size={GoogleSigninButton.Size.Icon}
-            // color={GoogleSigninButton.Color.Dark}
+            style={{width: 48, height: 48}}
+            size={GoogleSigninButton.Size.Icon}
+            color={GoogleSigninButton.Color.Dark}
             onPress={this.signIn.bind(this)}/>
         </View>
       )
@@ -216,6 +216,7 @@ class DiaryList extends Component {
     else {
       return (
         <ScrollView style={styles.container}>
+
           <EventListView
               allEvents={this.state.allEvents}
               reminderChange={this.reminderChange.bind(this)}

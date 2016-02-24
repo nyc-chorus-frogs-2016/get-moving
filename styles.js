@@ -3,13 +3,14 @@ import React, {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F5FCFF',
-    backgroundColor: '#7ec0ee',
     borderColor: '#CCCCCC',
     margin: 10,
     marginTop: 30,
     padding: 10
+  },
+  showsVerticalScrollIndicator:{
+    width: 25,
   },
   eventContainer: {
     flex: 1,
@@ -30,12 +31,6 @@ module.exports = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
-  },
-  googleButton: {
-    width: 60,
-    height: 60,
-    flex:1
-    // alignItems:'center'
   },
   thumbnail: {
     width: 40,
