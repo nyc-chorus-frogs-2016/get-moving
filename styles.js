@@ -11,35 +11,34 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
   },
   introContainer: {
-    // backgroundColor: '#024959',
-    // flex: 1,
     justifyContent: 'center',
-  },
-  intro: {
-    alignItems: 'center',
     backgroundColor: '#80D6CF',
     borderColor: '#F2EFDC',
     borderWidth: 10,
     borderRadius: 10,
-    textAlign: 'center',
     margin: 10,
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 170,
     padding: 10,
+    left: 50,
+    top: 200
+  },
+  intro: {
+    alignItems: 'center',
     fontFamily: 'Avenir-Book',
-    left: 100,
     fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 5,
   },
   signin: {
     width: 48,
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    left: 175,
+    left: 105,
   },
   eventsContainer: {
     justifyContent: 'center',
-    // backgroundColor: '#024959',
     flex: 1,
   },
   eventContainer: {
@@ -90,7 +89,6 @@ module.exports = StyleSheet.create({
     paddingTop:25,
     height: 50,
     flexDirection:'row',
-    // position: 'absolute',
     top: 0
   },
   toolbarGreeting:{

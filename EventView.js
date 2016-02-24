@@ -52,6 +52,7 @@ class EventView extends Component {
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
             onTintColor="#024959"
+            tintColor="#A0A1A1"
             style={{marginBottom: 10}}
             value={this.reminder(event)} />
       </View>
