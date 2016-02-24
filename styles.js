@@ -4,15 +4,15 @@ import React, {StyleSheet} from 'react-native';
 module.exports = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: '#024959',
+    // backgroundColor: '#024959',
   },
   contentContainer: {
     paddingVertical: 20,
     justifyContent: 'center',
   },
   introContainer: {
-    backgroundColor: '#024959',
-    flex: 1,
+    // backgroundColor: '#024959',
+    // flex: 1,
     justifyContent: 'center',
   },
   intro: {
@@ -28,6 +28,7 @@ module.exports = StyleSheet.create({
     padding: 10,
     fontFamily: 'Avenir-Book',
     left: 100,
+    fontWeight: 'bold',
   },
   signin: {
     width: 48,
@@ -38,7 +39,8 @@ module.exports = StyleSheet.create({
   },
   eventsContainer: {
     justifyContent: 'center',
-    backgroundColor: '#024959',
+    // backgroundColor: '#024959',
+    flex: 1,
   },
   eventContainer: {
     flexDirection: 'row',
@@ -88,6 +90,8 @@ module.exports = StyleSheet.create({
     paddingTop:25,
     height: 50,
     flexDirection:'row',
+    // position: 'absolute',
+    top: 0
   },
   toolbarGreeting:{
     width: 10,
