@@ -215,7 +215,7 @@ class DiaryList extends Component {
       return (
         <ScrollView style={styles.container}>
           <View style={styles.eventsContainer}>
-            <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} style={{width: 370, height: 700}}>
+            <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} >
             <EventListView
                 allEvents={this.state.allEvents}
                 reminderChange={this.reminderChange.bind(this)}
