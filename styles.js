@@ -20,7 +20,7 @@ module.exports = StyleSheet.create({
     width: 300,
     height: 170,
     padding: 10,
-    left: 50,
+    left: 25,
     top: 200
   },
   intro: {

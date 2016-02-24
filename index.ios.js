@@ -178,7 +178,7 @@ class DiaryList extends Component {
   render() {
     if (!this.state.user) {
       return (
-          <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} style={{width: 415, height: 800}}>
+          <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} style={{width: 450, height: 700}}>
         <View style={styles.introContainer}>
               <Text style={styles.intro}>
                 Welcome to Diary List, the app that will help you never be late again! Click below to log in with your Google account.
@@ -196,7 +196,7 @@ class DiaryList extends Component {
       return (
         <ScrollView style={styles.container}>
           <View style={styles.eventsContainer}>
-            <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} style={{width: 415, height: 800}}>
+            <Image source={{uri:"https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&dpr=0.90&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2075" }} style={{width: 370, height: 700}}>
             <EventListView
                 allEvents={this.state.allEvents}
                 reminderChange={this.reminderChange.bind(this)}
