@@ -27,15 +27,27 @@ class EventView extends Component {
 
   render() {
     var event = this.props.event
+    var date = new Date(this.props.event.start.dateTime);
+    var formattedDate = " " + (date.getUTCMonth() + 1) + "/" + date.getUTCDate();
+    var formattedDateWithYear = formattedDate + "/" + date.getUTCFullYear()
+    var time = date.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
+    var dateAndTime = time + ", " + formattedDateWithYear;
     return (
       <View style={styles.eventContainer}>
-        <Image
-        source={{uri:"https://lh5.ggpht.com/-oMUKnGIr7IUeAQaNoaY0VLJ5N_6lEZC7sSOS9tRm7W72ICH8I1-DVo-ovaODRMLlU0=w300" }}
-        style={styles.thumbnail}/>
+        <View style={styles.dateContainer}>
+          <Image
+          source={{uri:"https://pidome.org/assets/site/images/events/default-event-image.png" }}
+          style={styles.thumbnail}/>
+          <Text>{formattedDate}</Text>
+        </View>
         <View style={styles.rightContainer}>
           <Text style={styles.name}>{event.summary}</Text>
-          <Text style={styles.time}>Time: {event.start.dateTime}</Text>
-          <Text style={styles.location}>Location: {event.location}</Text>
+          <Text>
+            <Text style={styles.bold}>When: </Text><Text style={styles.time}> {dateAndTime}</Text>
+          </Text>
+          <Text>
+            <Text style={styles.bold}>Where: </Text><Text style={styles.location}>Location: {event.location}</Text>
+          </Text>
         </View>
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
