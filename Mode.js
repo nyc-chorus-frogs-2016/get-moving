@@ -18,9 +18,9 @@ const styles= require('./styles');
 class Mode extends Component {
 
   render() {
+
     return (
       <View>
-
           <PickerIOS
           selectedValue={this.props.mode}
           onValueChange={(mode) => this.props.modeChange(mode)}>
@@ -37,8 +37,6 @@ class Mode extends Component {
                 value="transit"
                 label="transit"/>
           </PickerIOS>
-
-
       </View>
     );
   }

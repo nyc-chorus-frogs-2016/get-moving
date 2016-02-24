@@ -126,6 +126,9 @@ class DiaryList extends Component {
         this.addressToCoordinates(this.state.nextEvent.location);
       }).then(() => {
           this.postToServer()
+          console.log("xxxxxxx")
+          console.log(this.state.nextEvent.summary)
+          console.log(this.state.nextEvent.extendedProperties.private.mode || "driving")
         })
     };
   }
@@ -178,8 +181,19 @@ class DiaryList extends Component {
 
 
   modeChange(id, mode) {
-    console.log(mode)
-    console.log(id)
+    return fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + id, {
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + this.state.user.accessToken,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        "extendedProperties": {"private":{"mode": mode}}
+      })
+    })
+      .then((response) => {
+        this.loadEventsFromCalendar()
+      });
   }
 
   render() {
