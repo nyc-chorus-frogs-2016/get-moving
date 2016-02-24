@@ -9,9 +9,6 @@ module.exports = StyleSheet.create({
     marginTop: 30,
     padding: 10
   },
-  showsVerticalScrollIndicator:{
-    width: 25,
-  },
   eventContainer: {
     flex: 1,
     flexDirection: 'row',
