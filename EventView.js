@@ -40,15 +40,18 @@ class EventView extends Component {
           <Text style={styles.name}>{event.summary}</Text>
           <Text style={styles.time}>Time: {event.start.dateTime}</Text>
           <Text style={styles.location}>Location: {event.location}</Text>
+
+          {this.reminder(event) ?
+              <Mode
+              mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"} />
+             : null}
+
         </View>
           <Switch
             onValueChange={(value) => this.props.reminderChange(value)  }
             style={{marginBottom: 10}}
             value={this.reminder(event)} />
-            {this.reminder(event) ?
-              <Mode
-              mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "Driving"} />
-             : null}
+
       </View>
       );
   }

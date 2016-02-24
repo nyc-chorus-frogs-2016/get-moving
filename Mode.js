@@ -21,15 +21,21 @@ class Mode extends Component {
     return (
       <View>
 
-          <PickerIOS>
+          <PickerIOS
+          selectedValue={this.props.mode}
+          onValueChange={(mode) => console.log(mode)}>
               <PickerItemIOS
-                key="Walking"
-                value="Walking"
-                label="Walking"/>
+                key="walking"
+                value="walking"
+                label="walking"/>
               <PickerItemIOS
-                key="Driving"
-                value="Driving"
-                label="Driving"/>
+                key="driving"
+                value="driving"
+                label="driving"/>
+              <PickerItemIOS
+                key="transit"
+                value="transit"
+                label="transit"/>
           </PickerIOS>
 
 
@@ -41,6 +47,3 @@ class Mode extends Component {
 export default Mode
 
 
-        // <Text>
-        //   {this.props.mode}
-        // </Text>

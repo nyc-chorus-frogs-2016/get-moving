@@ -131,7 +131,7 @@ class DiaryList extends Component {
   }
 
   postToServer(){
-    fetch('http://secret-cliffs-77425.herokuapp.com/events',
+    fetch('http://rails-on-do.com//events',
       {
         headers: {
         "Content-type": "application/json"
@@ -147,7 +147,8 @@ class DiaryList extends Component {
         user_lat: this.state.currentCoordinates[0],
         start_time: new Date(this.state.nextEvent.start.dateTime),
         departure_time: new Date(new Date(this.state.nextEvent.start.dateTime).getTime() - this.state.durationToNextEvent*1000),
-        device_token: this.state.deviceToken
+        device_token: this.state.deviceToken,
+        mode: this.state.nextEvent.extendedProperties.private.mode || "driving"
       })
     })
     .then((response) => console.log(response)).catch(() => console.log(arguments))
@@ -174,6 +175,9 @@ class DiaryList extends Component {
         this.loadEventsFromCalendar()
       });
   }
+
+
+  modeChange(id, mode) {}
 
   render() {
     if (!this.state.user) {
