@@ -29,7 +29,7 @@ class EventView extends Component {
   render() {
     var event = this.props.event
     var date = new Date(this.props.event.start.dateTime);
-    var formattedDate = " " + (date.getUTCMonth() + 1) + "/" + date.getUTCDate();
+    var formattedDate = " " + (date.getUTCMonth() + 1) + "/" + date.getDate();
     var formattedDateWithYear = formattedDate + "/" + date.getUTCFullYear()
     var time = date.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
     var dateAndTime = time + ", " + formattedDateWithYear;
