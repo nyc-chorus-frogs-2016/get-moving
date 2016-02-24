@@ -200,9 +200,9 @@ class DiaryList extends Component {
   render() {
     if (!this.state.user) {
       return (
-        <View style={styles.container}>
-          <Text style={styles.instructions}>
-            Click the button below to log in with your Google account
+        <View style={styles.introContainer}>
+          <Text style={styles.intro}>
+            Welcome to Diary List, the app that will help you never be late again! Click below to log in with your Google account.
           </Text>
           <GoogleSigninButton
             style={styles.signin}
@@ -214,7 +214,7 @@ class DiaryList extends Component {
     }
     else {
       return (
-        <View>
+        <View style={styles.eventsContainer}>
           <EventListView
               allEvents={this.state.allEvents}
               reminderChange={this.reminderChange.bind(this)}

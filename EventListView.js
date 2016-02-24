@@ -32,7 +32,7 @@ class EventListView extends Component {
             <Text style={styles.signout}>Sign Out</Text>
           </TouchableHighlight>
         </View>
-        <View style={styles.container}>
+        <View style={styles.eventsContainer}>
           {rows}
         </View>
       </View>
