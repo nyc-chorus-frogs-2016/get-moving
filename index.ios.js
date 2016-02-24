@@ -8,6 +8,7 @@ import React, {
   Component,
   PushNotificationIOS,
   StyleSheet,
+  ScrollView,
   Text,
   View,
   NavigatorIOS,
@@ -214,12 +215,13 @@ class DiaryList extends Component {
     }
     else {
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+
           <EventListView
               allEvents={this.state.allEvents}
               reminderChange={this.reminderChange.bind(this)}
               signout={this.signOut.bind(this)} />
-        </View>
+        </ScrollView>
       );
     }
   }

@@ -20,8 +20,6 @@ class EventView extends Component {
     super();
   }
 
-
-
   reminder(event) {
     if (event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.reminder ) {
       return JSON.parse(event.extendedProperties.private.reminder)

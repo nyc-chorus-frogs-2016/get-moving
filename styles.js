@@ -3,16 +3,18 @@ import React, {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#F5FCFF',
     borderColor: '#CCCCCC',
-    marginTop: 5
+    margin: 10,
+    marginTop: 30,
+    padding: 10
+  },
+  showsVerticalScrollIndicator:{
+    width: 25,
   },
   eventContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
     borderColor: '#CCCCCC'
@@ -40,7 +42,8 @@ module.exports = StyleSheet.create({
     height: 60,
   },
   contentContainer: {
-    paddingVertical: 20
+    paddingVertical: 20,
+    justifyContent: 'center'
   },
   name: {
     fontSize: 20,
