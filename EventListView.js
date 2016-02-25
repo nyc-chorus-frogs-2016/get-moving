@@ -26,7 +26,6 @@ reminder(event) {
     var rows = this.props.allEvents.map((event) => {
         return (
           <EventView event={event}
-          modeChange={this.props.modeChange.bind(this)}
           reminderChange={this.props.reminderChange.bind(null, event.id)}
           reminder={this.reminder(event)}
           key={event.id}/>
