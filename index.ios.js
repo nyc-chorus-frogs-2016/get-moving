@@ -162,22 +162,6 @@ class DiaryList extends Component {
     })
   }
 
-  modeChange(id, mode) {
-    return fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + id, {
-      method: 'PATCH',
-      headers: {
-        "Authorization": "Bearer " + this.state.user.accessToken,
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        "extendedProperties": {"private":{"mode": mode}}
-      })
-    })
-      .then((response) => {
-        this.loadEventsFromCalendar()
-      });
-  }
-
   reminderChange(id, value) {
     return fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/" + id, {
       method: 'PATCH',
@@ -219,7 +203,6 @@ class DiaryList extends Component {
             <EventListView
                 allEvents={this.state.allEvents}
                 reminderChange={this.reminderChange.bind(this)}
-                modeChange={this.modeChange.bind(this)}
                 signout={this.signOut.bind(this)} />
             </Image>
           </View>

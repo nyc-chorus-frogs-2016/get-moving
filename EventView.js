@@ -12,25 +12,27 @@ import React, {
 } from 'react-native';
 
 const styles= require('./styles');
-import Mode from './Mode';
 
 class EventView extends Component {
   constructor() {
     super();
+    this.state = {reminder: null};
   }
 
-  reminder(event) {
-    if (event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.reminder ) {
-      return JSON.parse(event.extendedProperties.private.reminder)
+
+  reminder() {
+    if (this.state.reminder == null) {
+      return this.props.reminder
     }
-    return false
+    return this.state.reminder
   }
 
   render() {
     var event = this.props.event
+    var reminder = this.props.reminder
     var date = new Date(this.props.event.start.dateTime);
-    var formattedDate = " " + (date.getUTCMonth() + 1) + "/" + date.getDate();
-    var formattedDateWithYear = formattedDate + "/" + date.getUTCFullYear()
+    var formattedDate = " " + (date.getMonth() + 1) + "/" + date.getDate();
+    var formattedDateWithYear = formattedDate + "/" + date.getFullYear()
     var time = date.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
     var dateAndTime = time + ", " + formattedDateWithYear;
     return (
@@ -47,28 +49,19 @@ class EventView extends Component {
             <Text style={styles.bold}>When: </Text><Text style={styles.time}> {dateAndTime}</Text>
           </Text>
           <Text>
-            <Text style={styles.bold}>Where: </Text><Text style={styles.location}>Location: {event.location}</Text>
+            <Text style={styles.bold}>Where: </Text><Text style={styles.location}>{event.location}</Text>
           </Text>
-
-
-
 
         </View>
           <Switch
-            onValueChange={(value) => this.props.reminderChange(value)  }
+            onValueChange={(value) => {this.setState({reminder: value}); this.props.reminderChange(value) }}
             onTintColor="#024959"
             tintColor="#A0A1A1"
             style={{marginBottom: 10}}
-            value={this.reminder(event)} />
+            value={this.reminder()} />
       </View>
       );
   }
 }
 
 export default EventView
-
-          // {this.reminder(event) ?
-          //     <Mode
-          //     mode={event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.mode? event.extendedProperties.private.mode : "driving"}
-          //     modeChange = {this.props.modeChange.bind(null, event.id)} />
-          //    : null}
