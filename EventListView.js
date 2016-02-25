@@ -15,12 +15,20 @@ const styles= require('./styles');
 
 class EventListView extends Component {
 
+reminder(event) {
+  if (event.extendedProperties && event.extendedProperties.private && event.extendedProperties.private.reminder ) {
+    return JSON.parse(event.extendedProperties.private.reminder)
+  }
+  return false
+}
+
   render() {
     var rows = this.props.allEvents.map((event) => {
         return (
           <EventView event={event}
           modeChange={this.props.modeChange.bind(this)}
           reminderChange={this.props.reminderChange.bind(null, event.id)}
+          reminder={this.reminder(event)}
           key={event.id}/>
         )
     });

@@ -16,7 +16,6 @@ var PickerItemIOS = PickerIOS.Item;
 const styles= require('./styles');
 
 class Mode extends Component {
-
   render() {
     return (
       <View>
